@@ -66,8 +66,23 @@ predict = model.predict(df)
 
 st.subheader('Predicted')
 predict
+st.write('---')
 
+# explaining the model's prediction using SHAP values
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(x)
 
+st.header('Feature Importance')
+plt.title('Feature Importance Based on SHAP Values')
+shap.summary_plot(shap_values, x)
+st.pyplot(plt, bbox_inches='tight')
+st.write('---')
+
+plt.close()
+
+plt.title('Feature Importance Based on SHAP Values')
+shap.summary_plot(shap_values, x, plot_type='bar')
+st.pyplot(plt, bbox_inches='tight')
 
 
 
